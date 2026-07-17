@@ -1,0 +1,72 @@
+// This is your Prisma schema file,
+// learn more about it in the docs: https://pris.ly/d/prisma-schema
+
+generator client {
+  provider = "prisma-client"
+  output   = "../src/generated/prisma"
+}
+
+datasource db {
+  provider = "postgresql"
+}
+
+enum RoomState {
+  empty
+  furnished
+}
+
+enum JobStatus {
+  pending
+  paid
+  processing
+  completed
+  failed
+}
+
+enum PaymentMethod {
+  vipps
+  card
+}
+
+enum PaymentStatus {
+  pending
+  authorized
+  captured
+  failed
+  cancelled
+}
+
+model Job {
+  id                  String    @id @default(cuid())
+  userEmail           String
+  originalImageUrl    String
+  roomType            String
+  roomState           RoomState
+  style               String
+  status              JobStatus @default(pending)
+  intermediateImageUrl String?
+  resultImageUrl      String?
+  retryCount          Int       @default(0)
+  failureReason       String?
+  createdAt           DateTime  @default(now())
+  completedAt         DateTime?
+
+  payments Payment[]
+
+  @@index([userEmail])
+  @@index([status])
+}
+
+model Payment {
+  id             String        @id @default(cuid())
+  jobId          String
+  job            Job           @relation(fields: [jobId], references: [id])
+  amount         Int
+  currency       String        @default("NOK")
+  paymentMethod  PaymentMethod
+  paymentStatus  PaymentStatus @default(pending)
+  pspReference   String?
+  createdAt      DateTime      @default(now())
+
+  @@index([jobId])
+}
