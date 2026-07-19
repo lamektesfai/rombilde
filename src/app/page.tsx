@@ -1,3 +1,5 @@
+import Link from "next/link";
+
 const trinn = [
   {
     tall: "01",
@@ -211,6 +213,10 @@ export default function Home() {
 
       <footer className="mx-auto max-w-6xl px-6 py-10 text-center text-xs text-ink-soft">
         © {new Date().getFullYear()} Rombilde
+        {" · "}
+        <Link href="/vilkar" className="underline-offset-2 hover:underline">
+          Vilkår for kjøp
+        </Link>
       </footer>
     </main>
   );
