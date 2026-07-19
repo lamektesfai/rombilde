@@ -7,6 +7,10 @@ import { sendResultEmail } from "@/lib/email";
 export async function processJob(jobId: string): Promise<void> {
   const job = await prisma.job.findUniqueOrThrow({ where: { id: jobId } });
 
+  if (!job.originalImageUrl) {
+    throw new Error(`Jobb ${jobId} mangler originalbilde (sannsynligvis allerede slettet)`);
+  }
+
   await prisma.job.update({ where: { id: jobId }, data: { status: "processing" } });
 
   try {

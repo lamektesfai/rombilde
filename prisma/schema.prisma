@@ -39,7 +39,7 @@ enum PaymentStatus {
 model Job {
   id                  String    @id @default(cuid())
   userEmail           String
-  originalImageUrl    String
+  originalImageUrl    String?
   roomType            String
   roomState           RoomState
   style               String
@@ -50,6 +50,7 @@ model Job {
   failureReason       String?
   createdAt           DateTime  @default(now())
   completedAt         DateTime?
+  imagesDeletedAt     DateTime?
 
   payments Payment[]
 

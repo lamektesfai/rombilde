@@ -88,10 +88,11 @@ const SEKSJONER = [
     tittel: "6. Lagringstid",
     innhold: (
       <p>
-        Vi lagrer bildene og bestillingsopplysningene dine så lenge det er
-        nødvendig for å levere tjenesten og håndtere eventuelle henvendelser
-        eller reklamasjoner, normalt i inntil 12 måneder etter kjøpet. Du kan
-        når som helst be om at opplysningene dine slettes tidligere, se punkt 7.
+        Originalbildet du laster opp slettes automatisk fra våre servere
+        senest 6 måneder etter kjøpet. Øvrige bestillingsopplysninger
+        (e-post, tidspunkt, status) beholdes noe lenger av hensyn til
+        regnskaps- og bokføringsplikten. Du kan når som helst be om at
+        opplysningene dine slettes tidligere, se punkt 7.
       </p>
     ),
   },
