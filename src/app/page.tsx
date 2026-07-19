@@ -217,6 +217,10 @@ export default function Home() {
         <Link href="/vilkar" className="underline-offset-2 hover:underline">
           Vilkår for kjøp
         </Link>
+        {" · "}
+        <Link href="/personvern" className="underline-offset-2 hover:underline">
+          Personvern
+        </Link>
       </footer>
     </main>
   );
