@@ -1,0 +1,13 @@
+<svg width="512" height="512" viewBox="0 0 512 512" xmlns="http://www.w3.org/2000/svg">
+  <rect width="512" height="512" rx="112" fill="#2E4034"/>
+  <text
+    x="50%"
+    y="53%"
+    text-anchor="middle"
+    dominant-baseline="central"
+    font-family="Arial"
+    font-weight="700"
+    font-size="300"
+    fill="#F6F4EF"
+  >R</text>
+</svg>
