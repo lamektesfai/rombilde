@@ -1,6 +1,6 @@
 "use client";
 
-import { useEffect, useState } from "react";
+import { Suspense, useEffect, useState } from "react";
 import { useSearchParams } from "next/navigation";
 import Link from "next/link";
 
@@ -21,7 +21,7 @@ const STATUS_TEKST: Record<JobStatus, string> = {
   failed: "Noe gikk galt under møbleringen.",
 };
 
-export default function KvitteringPage() {
+function KvitteringInnhold() {
   const searchParams = useSearchParams();
   const jobId = searchParams.get("jobId");
 
@@ -149,5 +149,24 @@ export default function KvitteringPage() {
         )}
       </div>
     </main>
+  );
+}
+
+export default function KvitteringPage() {
+  return (
+    <Suspense
+      fallback={
+        <main className="flex min-h-screen flex-col items-center justify-center bg-paper px-6 py-20 text-ink">
+          <div className="flex w-full max-w-lg flex-col items-center gap-6 text-center">
+            <Link href="/" className="font-heading text-xl font-semibold tracking-tight">
+              Rombilde
+            </Link>
+            <p className="text-ink-soft">Henter status på jobben din …</p>
+          </div>
+        </main>
+      }
+    >
+      <KvitteringInnhold />
+    </Suspense>
   );
 }
