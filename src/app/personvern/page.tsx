@@ -12,7 +12,7 @@ const SEKSJONER = [
       <p>
         Studio Tesfai, org.nr. 938 110 212, er behandlingsansvarlig for
         personopplysningene som samles inn gjennom rombilde.no. Spørsmål om
-        personvern kan rettes til post@rombilde.no.
+        personvern kan rettes til rombilde@outlook.com.
       </p>
     ),
   },
@@ -110,7 +110,7 @@ const SEKSJONER = [
           <li>be om at opplysningene dine utleveres i et strukturert format (dataportabilitet)</li>
         </ul>
         <p>
-          Ta kontakt på post@rombilde.no for å benytte deg av disse
+          Ta kontakt på rombilde@outlook.com for å benytte deg av disse
           rettighetene.
         </p>
       </>
@@ -133,7 +133,7 @@ const SEKSJONER = [
     innhold: (
       <p>
         Spørsmål om vår behandling av personopplysninger kan rettes til
-        post@rombilde.no. Du har også rett til å klage til Datatilsynet
+        rombilde@outlook.com. Du har også rett til å klage til Datatilsynet
         (datatilsynet.no) dersom du mener vi behandler personopplysningene
         dine i strid med regelverket.
       </p>

@@ -18,7 +18,7 @@ const SEKSJONER = [
           Kjøper er den personen som gjennomfører en bestilling på rombilde.no
           («kunde», «du»).
         </p>
-        <p>Kontakt: post@rombilde.no</p>
+        <p>Kontakt: rombilde@outlook.com</p>
       </>
     ),
   },
@@ -85,7 +85,7 @@ const SEKSJONER = [
         <p>
           Hvis resultatet ikke svarer til det du bestilte (f.eks. teknisk feil, feil
           romtype/stil, eller mangelfull kvalitet), kan du ta kontakt på
-          post@rombilde.no innen rimelig tid. Vi vurderer saken og kjører bildet på
+          rombilde@outlook.com innen rimelig tid. Vi vurderer saken og kjører bildet på
           nytt eller refunderer kjøpet.
         </p>
         <p>
