@@ -30,13 +30,14 @@ async function getVippsAccessToken(): Promise<string> {
   return cachedToken.value;
 }
 
-async function vippsHeaders(): Promise<HeadersInit> {
+async function vippsHeaders(idempotencyKey: string): Promise<HeadersInit> {
   const token = await getVippsAccessToken();
   return {
     Authorization: `Bearer ${token}`,
     "Ocp-Apim-Subscription-Key": process.env.VIPPS_SUBSCRIPTION_KEY ?? "",
     "Merchant-Serial-Number": process.env.VIPPS_MERCHANT_SERIAL_NUMBER ?? "",
     "Vipps-System-Name": "rombilde",
+    "Idempotency-Key": idempotencyKey,
     "Content-Type": "application/json",
   };
 }
@@ -49,7 +50,7 @@ export async function createVippsPayment(params: {
 }): Promise<{ redirectUrl: string; reference: string }> {
   const response = await fetch(`${VIPPS_BASE_URL}/epayment/v1/payments`, {
     method: "POST",
-    headers: await vippsHeaders(),
+    headers: await vippsHeaders(params.reference),
     body: JSON.stringify({
       amount: { currency: "NOK", value: params.amountOre },
       paymentMethod: { type: "WALLET" },
@@ -72,7 +73,7 @@ export async function captureVippsPayment(reference: string, amountOre: number) 
     `${VIPPS_BASE_URL}/epayment/v1/payments/${reference}/capture`,
     {
       method: "POST",
-      headers: await vippsHeaders(),
+      headers: await vippsHeaders(`capture-${reference}`),
       body: JSON.stringify({
         modificationAmount: { currency: "NOK", value: amountOre },
       }),
@@ -91,7 +92,7 @@ export async function refundVippsPayment(reference: string, amountOre: number) {
     `${VIPPS_BASE_URL}/epayment/v1/payments/${reference}/refund`,
     {
       method: "POST",
-      headers: await vippsHeaders(),
+      headers: await vippsHeaders(`refund-${reference}`),
       body: JSON.stringify({
         modificationAmount: { currency: "NOK", value: amountOre },
       }),
