@@ -1,3 +1,4 @@
+import Image from "next/image";
 import Link from "next/link";
 import ScrollAnimations from "@/components/ScrollAnimations";
 
@@ -119,6 +120,56 @@ export default function Home() {
           >
             Se hvordan det funker
           </a>
+        </div>
+      </section>
+
+      <section id="eksempel" className="py-20">
+        <div className="mx-auto max-w-5xl px-6">
+          <h2
+            data-animate
+            className="mb-2 text-center font-heading text-3xl font-semibold sm:text-4xl"
+          >
+            Se forskjellen selv
+          </h2>
+          <p className="mx-auto mb-12 max-w-xl text-center text-sm text-ink-soft">
+            Et ekte eksempel — samme rom, før og etter AI-møblering.
+          </p>
+          <div data-animate-group className="grid grid-cols-1 gap-6 sm:grid-cols-2">
+            <figure
+              data-animate-item
+              className="overflow-hidden rounded-2xl border border-line bg-paper-2 transition duration-300 hover:-translate-y-1 hover:shadow-lg"
+            >
+              <div className="relative aspect-[4/3]">
+                <span className="absolute left-4 top-4 z-10 rounded-full bg-ink/80 px-3 py-1 font-mono text-xs uppercase tracking-wide text-paper">
+                  Før
+                </span>
+                <Image
+                  src="/eksempel/for.jpg"
+                  alt="Rommet før AI-møblering"
+                  fill
+                  className="object-cover"
+                  sizes="(min-width: 640px) 50vw, 100vw"
+                />
+              </div>
+            </figure>
+            <figure
+              data-animate-item
+              className="overflow-hidden rounded-2xl border border-pine bg-paper-2 transition duration-300 hover:-translate-y-1 hover:shadow-lg"
+            >
+              <div className="relative aspect-[4/3]">
+                <span className="absolute left-4 top-4 z-10 rounded-full bg-pine px-3 py-1 font-mono text-xs uppercase tracking-wide text-paper">
+                  Etter
+                </span>
+                <Image
+                  src="/eksempel/etter.webp"
+                  alt="Rommet etter AI-møblering"
+                  fill
+                  className="object-cover"
+                  sizes="(min-width: 640px) 50vw, 100vw"
+                />
+              </div>
+            </figure>
+          </div>
         </div>
       </section>
 
