@@ -62,7 +62,8 @@ export async function createVippsPayment(params: {
   });
 
   if (!response.ok) {
-    throw new Error(`Kunne ikke opprette Vipps-betaling: ${response.status}`);
+    const detail = await response.text().catch(() => "");
+    throw new Error(`Kunne ikke opprette Vipps-betaling: ${response.status} ${detail}`);
   }
 
   return response.json();

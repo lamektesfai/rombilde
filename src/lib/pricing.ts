@@ -10,3 +10,10 @@ export const PRICES_ORE = {
 export function priceForRoomState(roomState: RoomState): number {
   return roomState === "furnished" ? PRICES_ORE.furnished : PRICES_ORE.empty;
 }
+
+export const PACKAGES = {
+  boligpakke: { imageCount: 5, amountOre: PRICES_ORE.boligpakke, label: "Boligpakke" },
+  fullPakke: { imageCount: 10, amountOre: PRICES_ORE.fullPakke, label: "Full pakke" },
+} as const;
+
+export type PackageType = keyof typeof PACKAGES;

@@ -35,6 +35,36 @@ export async function POST(request: NextRequest) {
     return NextResponse.json({ received: true });
   }
 
+  if (payload.reference.startsWith("order-")) {
+    const orderId = payload.reference.slice("order-".length);
+    const order = await prisma.order.findUnique({
+      where: { id: orderId },
+      include: { jobs: true },
+    });
+
+    if (!order) {
+      return NextResponse.json({ error: "Fant ikke ordren" }, { status: 404 });
+    }
+
+    await captureVippsPayment(payload.reference, order.amount);
+
+    await prisma.order.update({
+      where: { id: order.id },
+      data: { paymentStatus: "captured", pspReference: payload.pspReference },
+    });
+
+    await prisma.job.updateMany({
+      where: { orderId: order.id },
+      data: { status: "paid" },
+    });
+
+    await Promise.all(
+      order.jobs.map((job) => inngest.send({ name: "job/paid", data: { jobId: job.id } }))
+    );
+
+    return NextResponse.json({ received: true });
+  }
+
   const payment = await prisma.payment.findUnique({
     where: { id: payload.reference },
     include: { job: true },

@@ -36,6 +36,11 @@ enum PaymentStatus {
   cancelled
 }
 
+enum PackageType {
+  boligpakke
+  fullPakke
+}
+
 model Job {
   id                  String    @id @default(cuid())
   userEmail           String
@@ -51,11 +56,30 @@ model Job {
   createdAt           DateTime  @default(now())
   completedAt         DateTime?
   imagesDeletedAt     DateTime?
+  orderId             String?
+  order               Order?    @relation(fields: [orderId], references: [id])
 
   payments Payment[]
 
   @@index([userEmail])
   @@index([status])
+  @@index([orderId])
+}
+
+model Order {
+  id            String        @id @default(cuid())
+  userEmail     String
+  packageType   PackageType
+  imageCount    Int
+  amount        Int
+  currency      String        @default("NOK")
+  paymentStatus PaymentStatus @default(pending)
+  pspReference  String?
+  createdAt     DateTime      @default(now())
+
+  jobs Job[]
+
+  @@index([userEmail])
 }
 
 model Payment {

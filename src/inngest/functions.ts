@@ -13,6 +13,24 @@ export const processJobFunction = inngest.createFunction(
     onFailure: async ({ event, error }) => {
       const jobId = event.data.event.data.jobId as string;
 
+      const existingJob = await prisma.job.findUnique({ where: { id: jobId } });
+
+      if (existingJob?.orderId) {
+        // Bildet er del av en pakkebetaling som også dekker andre bilder —
+        // ikke refunder automatisk, bare marker jobben som feilet.
+        const job = await prisma.job.update({
+          where: { id: jobId },
+          data: { status: "failed", failureReason: error.message },
+        });
+
+        try {
+          await sendFailureEmail({ to: job.userEmail, refunded: false, packageContext: true });
+        } catch (emailError) {
+          console.error(`Kunne ikke sende feil-e-post for jobb ${jobId}:`, emailError);
+        }
+        return;
+      }
+
       const payment = await prisma.payment.findFirst({
         where: { jobId, paymentStatus: "captured" },
       });

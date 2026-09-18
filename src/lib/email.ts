@@ -68,18 +68,24 @@ export async function sendResultEmail(params: { to: string; resultImageUrl: stri
   });
 }
 
-export async function sendFailureEmail(params: { to: string; refunded: boolean }) {
+export async function sendFailureEmail(params: {
+  to: string;
+  refunded: boolean;
+  packageContext?: boolean;
+}) {
+  const paymentLine = params.packageContext
+    ? "Dette bildet var del av en pakkebetaling som også dekker de andre bildene dine. Vi tar kontakt med deg for å ordne opp rundt akkurat dette bildet."
+    : params.refunded
+      ? "Betalingen din er refundert, og du er ikke belastet for dette kjøpet."
+      : "Vi jobber med å refundere betalingen din, og du hører fra oss om kort tid.";
+
   const inner = `
     <h1 style="margin:0 0 8px; font-size:22px; color:#1F2420;">Noe gikk galt</h1>
     <p style="margin:0 0 16px; font-size:15px; line-height:1.6; color:#4B5148;">
       Vi klarte dessverre ikke å møblere rommet ditt denne gangen, selv etter flere forsøk.
     </p>
     <p style="margin:0 0 16px; font-size:15px; line-height:1.6; color:#4B5148;">
-      ${
-        params.refunded
-          ? "Betalingen din er refundert, og du er ikke belastet for dette kjøpet."
-          : "Vi jobber med å refundere betalingen din, og du hører fra oss om kort tid."
-      }
+      ${paymentLine}
     </p>
     <p style="margin:0; font-size:15px; line-height:1.6; color:#4B5148;">
       Du er velkommen til å prøve på nytt med samme eller et annet bilde.
