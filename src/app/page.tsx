@@ -76,9 +76,9 @@ export default function Home() {
   return (
     <main className="min-h-screen bg-paper text-ink">
       <header className="mx-auto flex max-w-6xl items-center justify-between px-6 py-6">
-        <span className="font-heading text-xl font-semibold tracking-tight">
+        <Link href="/" className="font-heading text-xl font-semibold tracking-tight">
           Rombilde
-        </span>
+        </Link>
         <a
           href="#priser"
           className="rounded-full border border-line px-4 py-2 text-sm text-ink-soft transition hover:-translate-y-0.5 hover:border-pine hover:text-pine active:translate-y-0"

@@ -1,58 +1,41 @@
 "use client";
 
 import { useEffect } from "react";
-import gsap from "gsap";
-import { ScrollTrigger } from "gsap/ScrollTrigger";
 
 export default function ScrollAnimations() {
   useEffect(() => {
-    gsap.registerPlugin(ScrollTrigger);
+    if (window.matchMedia("(prefers-reduced-motion: reduce)").matches) return;
 
-    const mm = gsap.matchMedia();
+    const observer = new IntersectionObserver(
+      (entries, obs) => {
+        entries.forEach((entry) => {
+          if (!entry.isIntersecting) return;
+          const target = entry.target as HTMLElement;
 
-    mm.add("(prefers-reduced-motion: no-preference)", () => {
-      const singles = gsap.utils.toArray<HTMLElement>("[data-animate]");
-      singles.forEach((el) => {
-        gsap.from(el, {
-          opacity: 0,
-          y: 16,
-          duration: 0.4,
-          ease: "power1.out",
-          scrollTrigger: {
-            trigger: el,
-            start: "top 90%",
-            toggleActions: "play none none reverse",
-          },
+          if (target.hasAttribute("data-animate-group")) {
+            const items = Array.from(
+              target.querySelectorAll<HTMLElement>("[data-animate-item]")
+            );
+            items.forEach((item, index) => {
+              item.style.transitionDelay = `${index * 60}ms`;
+              item.classList.add("is-visible");
+            });
+          } else {
+            target.classList.add("is-visible");
+          }
+
+          obs.unobserve(target);
         });
-      });
+      },
+      { threshold: 0.15, rootMargin: "0px 0px -10% 0px" }
+    );
 
-      const groups = gsap.utils.toArray<HTMLElement>("[data-animate-group]");
-      groups.forEach((group) => {
-        const items = group.querySelectorAll("[data-animate-item]");
-        if (!items.length) return;
+    const targets = document.querySelectorAll<HTMLElement>(
+      "[data-animate], [data-animate-group]"
+    );
+    targets.forEach((el) => observer.observe(el));
 
-        gsap.from(items, {
-          opacity: 0,
-          y: 12,
-          duration: 0.35,
-          stagger: 0.06,
-          ease: "power1.out",
-          scrollTrigger: {
-            trigger: group,
-            start: "top 85%",
-            toggleActions: "play none none reverse",
-          },
-        });
-      });
-
-      return () => {
-        ScrollTrigger.getAll().forEach((trigger) => trigger.kill());
-      };
-    });
-
-    return () => {
-      mm.revert();
-    };
+    return () => observer.disconnect();
   }, []);
 
   return null;
