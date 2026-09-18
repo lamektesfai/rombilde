@@ -1,7 +1,9 @@
-import Image from "next/image";
 import Link from "next/link";
 import ScrollAnimations from "@/components/ScrollAnimations";
-import BuildingFrame, { type Floor } from "@/components/BuildingFrame";
+import JourneyHero from "@/components/JourneyHero";
+import JourneyReveal from "@/components/JourneyReveal";
+import StyleCarousel from "@/components/StyleCarousel";
+import StatCounter from "@/components/StatCounter";
 
 const trinn = [
   {
@@ -78,248 +80,150 @@ const priser = [
 ];
 
 export default function Home() {
-  const etasjer: Floor[] = [
-    {
-      id: "hero",
-      content: (
-        <section
-          data-animate-group
-          className="mx-auto flex max-w-6xl flex-col items-center gap-6 px-6 pb-20 pt-12 text-center sm:pt-20"
-        >
-          <span
-            data-animate-item
-            className="rounded-full bg-sand-light px-4 py-1 font-mono text-xs uppercase tracking-wide text-ink-soft"
-          >
-            Laget for boligselgere uten megler
-          </span>
-          <h1
-            data-animate-item
-            className="max-w-3xl font-heading text-4xl font-semibold leading-tight sm:text-6xl"
-          >
-            Møbler rommet ditt med AI – klart for Finn.no på under ett minutt
-          </h1>
-          <p data-animate-item className="max-w-xl text-lg text-ink-soft">
-            Last opp et bilde av et tomt eller møblert rom, og få tilbake et
-            profesjonelt møblert bilde som gir boligen din et bedre førsteinntrykk.
-          </p>
-          <div data-animate-item className="mt-4 flex flex-col gap-3 sm:flex-row">
-            <a
-              href="#priser"
-              className="rounded-full bg-pine px-8 py-3 text-sm font-medium text-paper transition hover:-translate-y-0.5 hover:bg-pine-light active:translate-y-0"
-            >
-              Møbler mitt rom
-            </a>
-            <a
-              href="#hvordan"
-              className="rounded-full border border-line px-8 py-3 text-sm font-medium text-ink transition hover:-translate-y-0.5 hover:border-pine hover:text-pine active:translate-y-0"
-            >
-              Se hvordan det funker
-            </a>
-          </div>
-        </section>
-      ),
-    },
-    {
-      id: "eksempel",
-      content: (
-        <section id="eksempel" className="py-20">
-          <div className="mx-auto max-w-5xl px-6">
-            <h2
-              data-animate
-              className="mb-2 text-center font-heading text-3xl font-semibold sm:text-4xl"
-            >
-              Se forskjellen selv
-            </h2>
-            <p className="mx-auto mb-12 max-w-xl text-center text-sm text-ink-soft">
-              Et ekte eksempel — samme rom, før og etter AI-møblering.
-            </p>
-            <div data-animate-group className="grid grid-cols-1 gap-6 sm:grid-cols-2">
-              <figure
-                data-animate-item
-                className="overflow-hidden rounded-2xl border border-line bg-paper-2 transition duration-300 hover:-translate-y-1 hover:shadow-lg"
-              >
-                <div className="relative aspect-[4/3]">
-                  <span className="absolute left-4 top-4 z-10 rounded-full bg-ink/80 px-3 py-1 font-mono text-xs uppercase tracking-wide text-paper">
-                    Før
-                  </span>
-                  <Image
-                    src="/eksempel/for.jpg"
-                    alt="Rommet før AI-møblering"
-                    fill
-                    className="object-cover"
-                    sizes="(min-width: 640px) 50vw, 100vw"
-                  />
-                </div>
-              </figure>
-              <figure
-                data-animate-item
-                className="overflow-hidden rounded-2xl border border-pine bg-paper-2 transition duration-300 hover:-translate-y-1 hover:shadow-lg"
-              >
-                <div className="relative aspect-[4/3]">
-                  <span className="absolute left-4 top-4 z-10 rounded-full bg-pine px-3 py-1 font-mono text-xs uppercase tracking-wide text-paper">
-                    Etter
-                  </span>
-                  <Image
-                    src="/eksempel/etter.webp"
-                    alt="Rommet etter AI-møblering"
-                    fill
-                    className="object-cover"
-                    sizes="(min-width: 640px) 50vw, 100vw"
-                  />
-                </div>
-              </figure>
-            </div>
-          </div>
-        </section>
-      ),
-    },
-    {
-      id: "hvordan",
-      content: (
-        <section id="hvordan" className="bg-paper-2 py-20">
-          <div className="mx-auto max-w-6xl px-6">
-            <h2
-              data-animate
-              className="mb-12 text-center font-heading text-3xl font-semibold sm:text-4xl"
-            >
-              Hvordan det funker
-            </h2>
-            <div data-animate-group className="grid grid-cols-1 gap-8 sm:grid-cols-2 lg:grid-cols-4">
-              {trinn.map((steg) => (
-                <div key={steg.tall} data-animate-item className="flex flex-col gap-2">
-                  <span className="font-mono text-sm text-sand">{steg.tall}</span>
-                  <h3 className="font-heading text-lg font-semibold">
-                    {steg.tittel}
-                  </h3>
-                  <p className="text-sm text-ink-soft">{steg.tekst}</p>
-                </div>
-              ))}
-            </div>
-          </div>
-        </section>
-      ),
-    },
-    {
-      id: "fototips",
-      content: (
-        <section id="fototips" className="py-20">
-          <div className="mx-auto max-w-6xl px-6">
-            <h2
-              data-animate
-              className="mb-2 text-center font-heading text-3xl font-semibold sm:text-4xl"
-            >
-              Tips for et godt bilde
-            </h2>
-            <p className="mx-auto mb-12 max-w-xl text-center text-sm text-ink-soft">
-              Resultatet blir bare så bra som bildet du starter med. Følg disse
-              fire tipsene før du laster opp.
-            </p>
-            <div data-animate-group className="grid grid-cols-1 gap-6 sm:grid-cols-2 lg:grid-cols-4">
-              {fototips.map((tips, index) => (
-                <div
-                  key={tips.tittel}
-                  data-animate-item
-                  className="flex flex-col gap-3 rounded-2xl border border-line bg-paper-2 p-6 transition duration-300 hover:-translate-y-1 hover:shadow-lg"
-                >
-                  <span className="flex h-8 w-8 items-center justify-center rounded-full bg-sand-light font-mono text-xs text-ink-soft">
-                    {String(index + 1).padStart(2, "0")}
-                  </span>
-                  <h3 className="font-heading text-lg font-semibold">
-                    {tips.tittel}
-                  </h3>
-                  <p className="text-sm text-ink-soft">{tips.tekst}</p>
-                </div>
-              ))}
-            </div>
-          </div>
-        </section>
-      ),
-    },
-    {
-      id: "priser",
-      content: (
-        <section id="priser" className="bg-paper-2 py-20">
-          <div className="mx-auto max-w-6xl px-6">
-            <h2
-              data-animate
-              className="mb-12 text-center font-heading text-3xl font-semibold sm:text-4xl"
-            >
-              Priser
-            </h2>
-            <div data-animate-group className="grid grid-cols-1 gap-6 sm:grid-cols-2 lg:grid-cols-4">
-              {priser.map((pakke) => (
-                <Link
-                  key={pakke.navn}
-                  href={pakke.href}
-                  data-animate-item
-                  className={`flex flex-col gap-3 rounded-2xl border p-6 transition duration-300 hover:-translate-y-1 hover:shadow-lg ${
-                    pakke.fremhevet
-                      ? "border-pine bg-pine text-paper"
-                      : "border-line bg-paper"
-                  }`}
-                >
-                  <h3 className="font-heading text-lg font-semibold">
-                    {pakke.navn}
-                  </h3>
-                  <span className="font-mono text-2xl">{pakke.pris}</span>
-                  <p
-                    className={`text-sm ${
-                      pakke.fremhevet ? "text-paper-2" : "text-ink-soft"
-                    }`}
-                  >
-                    {pakke.beskrivelse}
-                  </p>
-                </Link>
-              ))}
-            </div>
-            <p className="mt-6 text-center text-sm text-ink-soft">
-              Ingen abonnement. Du betaler kun for bildene du bruker, med Vipps.
-            </p>
-          </div>
-        </section>
-      ),
-    },
-    {
-      id: "last-opp",
-      content: (
-        <section id="last-opp" className="bg-pine py-20 text-paper">
-          <div
-            data-animate
-            className="mx-auto flex max-w-2xl flex-col items-center gap-4 px-6 text-center"
-          >
-            <h2 className="font-heading text-3xl font-semibold sm:text-4xl">
-              Klar til å møblere rommet ditt?
-            </h2>
-            <p className="text-paper-2">
-              Last opp et bilde og se forskjellen selv.
-            </p>
-            <a
-              href="/last-opp"
-              className="mt-4 rounded-full bg-paper px-8 py-3 text-sm font-medium text-pine transition hover:-translate-y-0.5 hover:bg-sand-light active:translate-y-0"
-            >
-              Kom i gang
-            </a>
-          </div>
-        </section>
-      ),
-    },
-  ];
-
   return (
     <main className="min-h-screen bg-paper text-ink">
-      <header className="mx-auto flex max-w-6xl items-center justify-between px-6 py-6">
-        <Link href="/" className="font-heading text-xl font-semibold tracking-tight">
+      <header className="fixed inset-x-0 top-0 z-20 flex items-center justify-between px-6 py-4 sm:px-10">
+        <Link
+          href="/"
+          className="rounded-full bg-ink/30 px-4 py-2 font-heading text-lg font-semibold tracking-tight text-paper backdrop-blur"
+        >
           Rombilde
         </Link>
         <a
           href="#priser"
-          className="rounded-full border border-line px-4 py-2 text-sm text-ink-soft transition hover:-translate-y-0.5 hover:border-pine hover:text-pine active:translate-y-0"
+          className="rounded-full border border-paper/40 bg-ink/30 px-4 py-2 text-sm text-paper backdrop-blur transition hover:-translate-y-0.5 hover:border-paper active:translate-y-0"
         >
           Se priser
         </a>
       </header>
 
-      <BuildingFrame floors={etasjer} />
+      <JourneyHero />
+
+      <JourneyReveal />
+
+      <section className="bg-ink py-20">
+        <div className="mx-auto flex max-w-4xl flex-col items-center gap-12 px-6 sm:flex-row sm:justify-between">
+          <StatCounter target={60} suffix=" sek." label="Maks behandlingstid" />
+          <StatCounter target={8} label="Innredningsstiler" />
+          <StatCounter target={129} suffix=" kr" label="Fra pris per bilde" />
+        </div>
+      </section>
+
+      <StyleCarousel />
+
+      <section id="hvordan" className="bg-paper-2 py-20">
+        <div className="mx-auto max-w-6xl px-6">
+          <h2
+            data-animate
+            className="mb-12 text-center font-heading text-3xl font-semibold sm:text-4xl"
+          >
+            Hvordan det funker
+          </h2>
+          <div data-animate-group className="grid grid-cols-1 gap-8 sm:grid-cols-2 lg:grid-cols-4">
+            {trinn.map((steg) => (
+              <div key={steg.tall} data-animate-item className="flex flex-col gap-2">
+                <span className="font-mono text-sm text-sand">{steg.tall}</span>
+                <h3 className="font-heading text-lg font-semibold">
+                  {steg.tittel}
+                </h3>
+                <p className="text-sm text-ink-soft">{steg.tekst}</p>
+              </div>
+            ))}
+          </div>
+        </div>
+      </section>
+
+      <section id="fototips" className="py-20">
+        <div className="mx-auto max-w-6xl px-6">
+          <h2
+            data-animate
+            className="mb-2 text-center font-heading text-3xl font-semibold sm:text-4xl"
+          >
+            Tips for et godt bilde
+          </h2>
+          <p className="mx-auto mb-12 max-w-xl text-center text-sm text-ink-soft">
+            Resultatet blir bare så bra som bildet du starter med. Følg disse
+            fire tipsene før du laster opp.
+          </p>
+          <div data-animate-group className="grid grid-cols-1 gap-6 sm:grid-cols-2 lg:grid-cols-4">
+            {fototips.map((tips, index) => (
+              <div
+                key={tips.tittel}
+                data-animate-item
+                className="flex flex-col gap-3 rounded-2xl border border-line bg-paper-2 p-6 transition duration-300 hover:-translate-y-1 hover:shadow-lg"
+              >
+                <span className="flex h-8 w-8 items-center justify-center rounded-full bg-sand-light font-mono text-xs text-ink-soft">
+                  {String(index + 1).padStart(2, "0")}
+                </span>
+                <h3 className="font-heading text-lg font-semibold">
+                  {tips.tittel}
+                </h3>
+                <p className="text-sm text-ink-soft">{tips.tekst}</p>
+              </div>
+            ))}
+          </div>
+        </div>
+      </section>
+
+      <section id="priser" className="bg-paper-2 py-20">
+        <div className="mx-auto max-w-6xl px-6">
+          <h2
+            data-animate
+            className="mb-12 text-center font-heading text-3xl font-semibold sm:text-4xl"
+          >
+            Priser
+          </h2>
+          <div data-animate-group className="grid grid-cols-1 gap-6 sm:grid-cols-2 lg:grid-cols-4">
+            {priser.map((pakke) => (
+              <Link
+                key={pakke.navn}
+                href={pakke.href}
+                data-animate-item
+                className={`flex flex-col gap-3 rounded-2xl border p-6 transition duration-300 hover:-translate-y-1 hover:shadow-lg ${
+                  pakke.fremhevet
+                    ? "border-pine bg-pine text-paper"
+                    : "border-line bg-paper"
+                }`}
+              >
+                <h3 className="font-heading text-lg font-semibold">
+                  {pakke.navn}
+                </h3>
+                <span className="font-mono text-2xl">{pakke.pris}</span>
+                <p
+                  className={`text-sm ${
+                    pakke.fremhevet ? "text-paper-2" : "text-ink-soft"
+                  }`}
+                >
+                  {pakke.beskrivelse}
+                </p>
+              </Link>
+            ))}
+          </div>
+          <p className="mt-6 text-center text-sm text-ink-soft">
+            Ingen abonnement. Du betaler kun for bildene du bruker, med Vipps.
+          </p>
+        </div>
+      </section>
+
+      <section id="last-opp" className="bg-pine py-20 text-paper">
+        <div
+          data-animate
+          className="mx-auto flex max-w-2xl flex-col items-center gap-4 px-6 text-center"
+        >
+          <h2 className="font-heading text-3xl font-semibold sm:text-4xl">
+            Klar til å møblere rommet ditt?
+          </h2>
+          <p className="text-paper-2">
+            Last opp et bilde og se forskjellen selv.
+          </p>
+          <a
+            href="/last-opp"
+            className="mt-4 rounded-full bg-paper px-8 py-3 text-sm font-medium text-pine transition hover:-translate-y-0.5 hover:bg-sand-light active:translate-y-0"
+          >
+            Kom i gang
+          </a>
+        </div>
+      </section>
 
       <ScrollAnimations />
 
