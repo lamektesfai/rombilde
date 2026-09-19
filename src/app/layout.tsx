@@ -1,5 +1,7 @@
 import type { Metadata } from "next";
 import { Bricolage_Grotesque, IBM_Plex_Mono, Inter } from "next/font/google";
+import CookieConsent from "@/components/CookieConsent";
+import GoogleAnalytics from "@/components/GoogleAnalytics";
 import "./globals.css";
 
 const bricolage = Bricolage_Grotesque({
@@ -52,6 +54,10 @@ export default function RootLayout({
         className={`${bricolage.variable} ${inter.variable} ${plexMono.variable} font-sans antialiased`}
       >
         {children}
+        <CookieConsent />
+        {process.env.NEXT_PUBLIC_GA_MEASUREMENT_ID && (
+          <GoogleAnalytics measurementId={process.env.NEXT_PUBLIC_GA_MEASUREMENT_ID} />
+        )}
       </body>
     </html>
   );

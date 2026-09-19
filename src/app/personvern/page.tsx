@@ -122,11 +122,30 @@ const SEKSJONER = [
     id: "cookies",
     tittel: "8. Informasjonskapsler (cookies)",
     innhold: (
-      <p>
-        Rombilde bruker per i dag ingen sporings- eller analysecookies. Kun
-        strengt nødvendig, teknisk funksjonalitet som kreves for at nettsiden
-        skal fungere er i bruk.
-      </p>
+      <>
+        <p>
+          Rombilde bruker Google Analytics til å forstå hvordan nettsiden
+          brukes, blant annet antall besøkende og hvilke sider som besøkes.
+          Disse cookiene settes kun dersom du aktivt samtykker til det i
+          samtykkebanneret nederst på siden — de lastes ikke automatisk.
+          Google kan behandle disse opplysningene i tråd med sin egen{" "}
+          <a
+            href="https://policies.google.com/privacy"
+            target="_blank"
+            rel="noreferrer"
+            className="underline"
+          >
+            personvernerklæring
+          </a>
+          .
+        </p>
+        <p className="mt-4">
+          Du kan når som helst trekke tilbake samtykket ved å slette
+          nettleserens lokale lagring for rombilde.no eller kontakte oss på
+          rombilde@outlook.com. Utover dette bruker vi kun strengt nødvendig,
+          teknisk funksjonalitet som kreves for at nettsiden skal fungere.
+        </p>
+      </>
     ),
   },
   {
