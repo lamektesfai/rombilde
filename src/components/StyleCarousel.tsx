@@ -11,18 +11,6 @@ const STILER = [
     accent: "#E8DCC3",
   },
   {
-    navn: "Minimalistisk",
-    beskrivelse: "Få, gjennomtenkte elementer. Ingenting overflødig.",
-    bilde: "/stiler/minimalistisk.jpg",
-    accent: "#F6F4EF",
-  },
-  {
-    navn: "Moderne",
-    beskrivelse: "Rene linjer og et friskt, nøytralt fargespill.",
-    bilde: "/stiler/moderne.jpg",
-    accent: "#A9C2C9",
-  },
-  {
     navn: "Industriell",
     beskrivelse: "Rått og varmt på samme tid — metall møter tre.",
     bilde: "/stiler/industriell.jpg",
@@ -33,6 +21,12 @@ const STILER = [
     beskrivelse: "Tekstur, mønster og varme jordfarger.",
     bilde: "/stiler/boho.jpg",
     accent: "#E8DCC3",
+  },
+  {
+    navn: "Rustikk",
+    beskrivelse: "Tre, skinn og varme detaljer — et rom med sjel.",
+    bilde: "/stiler/rustikk.jpg",
+    accent: "#C9A876",
   },
 ] as const;
 
@@ -102,7 +96,7 @@ export default function StyleCarousel() {
         </div>
 
         <p className="relative mt-2 font-mono text-xs text-paper-2 opacity-80">
-          + 3 flere stiler å velge mellom i bestillingsskjemaet
+          + 4 flere stiler å velge mellom i bestillingsskjemaet
         </p>
       </div>
     </section>
