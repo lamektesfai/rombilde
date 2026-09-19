@@ -18,10 +18,27 @@ const plexMono = IBM_Plex_Mono({
   variable: "--font-plex-mono",
 });
 
+const TITLE = "Rombilde – AI-møblering for boligsalg";
+const DESCRIPTION =
+  "Last opp et bilde av rommet ditt og få det AI-møblert på under ett minutt. Laget for privatpersoner som selger bolig uten megler.";
+
 export const metadata: Metadata = {
-  title: "Rombilde – AI-møblering for boligsalg",
-  description:
-    "Last opp et bilde av rommet ditt og få det AI-møblert på under ett minutt. Laget for privatpersoner som selger bolig uten megler.",
+  metadataBase: new URL("https://www.rombilde.no"),
+  title: TITLE,
+  description: DESCRIPTION,
+  openGraph: {
+    title: TITLE,
+    description: DESCRIPTION,
+    url: "https://www.rombilde.no",
+    siteName: "Rombilde",
+    locale: "nb_NO",
+    type: "website",
+  },
+  twitter: {
+    card: "summary_large_image",
+    title: TITLE,
+    description: DESCRIPTION,
+  },
 };
 
 export default function RootLayout({

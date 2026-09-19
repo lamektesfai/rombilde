@@ -2,6 +2,7 @@ import Link from "next/link";
 
 export const metadata = {
   title: "Vilkår for kjøp – Rombilde",
+  description: "Vilkårene som gjelder når du kjøper AI-møblering av bilder hos Rombilde.",
 };
 
 const SEKSJONER = [

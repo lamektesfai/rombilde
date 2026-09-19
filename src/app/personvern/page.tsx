@@ -2,6 +2,8 @@ import Link from "next/link";
 
 export const metadata = {
   title: "Personvernerklæring – Rombilde",
+  description:
+    "Hvordan Rombilde samler inn, bruker og lagrer personopplysninger når du bruker tjenesten.",
 };
 
 const SEKSJONER = [
