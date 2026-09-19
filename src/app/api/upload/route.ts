@@ -1,10 +1,23 @@
 import { NextRequest, NextResponse } from "next/server";
 import { uploadImageToR2 } from "@/lib/r2";
+import { getClientIp, rateLimit } from "@/lib/rate-limit";
 
 const ALLOWED_TYPES = ["image/jpeg", "image/png"];
 const MAX_FILE_SIZE_BYTES = 15 * 1024 * 1024;
 
 export async function POST(request: NextRequest) {
+  const { allowed, retryAfterSeconds } = rateLimit(
+    `upload:${getClientIp(request)}`,
+    30,
+    10 * 60 * 1000
+  );
+  if (!allowed) {
+    return NextResponse.json(
+      { error: "For mange opplastinger. Prøv igjen om litt." },
+      { status: 429, headers: { "Retry-After": String(retryAfterSeconds) } }
+    );
+  }
+
   const formData = await request.formData();
   const file = formData.get("file");
 

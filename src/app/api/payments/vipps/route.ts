@@ -2,8 +2,21 @@ import { NextRequest, NextResponse } from "next/server";
 import { prisma } from "@/lib/prisma";
 import { createVippsPayment } from "@/lib/vipps";
 import { priceForRoomState } from "@/lib/pricing";
+import { getClientIp, rateLimit } from "@/lib/rate-limit";
 
 export async function POST(request: NextRequest) {
+  const { allowed, retryAfterSeconds } = rateLimit(
+    `vipps:${getClientIp(request)}`,
+    10,
+    10 * 60 * 1000
+  );
+  if (!allowed) {
+    return NextResponse.json(
+      { error: "For mange forespørsler. Prøv igjen om litt." },
+      { status: 429, headers: { "Retry-After": String(retryAfterSeconds) } }
+    );
+  }
+
   const { jobId } = (await request.json()) as { jobId: string };
 
   const job = await prisma.job.findUnique({ where: { id: jobId } });

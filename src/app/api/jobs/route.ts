@@ -3,6 +3,7 @@ import { prisma } from "@/lib/prisma";
 import { RoomState } from "@/generated/prisma/enums";
 import { priceForRoomState } from "@/lib/pricing";
 import { DECOR8_DESIGN_STYLES, DECOR8_ROOM_TYPES } from "@/lib/decor8-options";
+import { getClientIp, rateLimit } from "@/lib/rate-limit";
 
 interface CreateJobBody {
   userEmail: string;
@@ -13,6 +14,18 @@ interface CreateJobBody {
 }
 
 export async function POST(request: NextRequest) {
+  const { allowed, retryAfterSeconds } = rateLimit(
+    `jobs:${getClientIp(request)}`,
+    10,
+    10 * 60 * 1000
+  );
+  if (!allowed) {
+    return NextResponse.json(
+      { error: "For mange forespørsler. Prøv igjen om litt." },
+      { status: 429, headers: { "Retry-After": String(retryAfterSeconds) } }
+    );
+  }
+
   const body = (await request.json()) as CreateJobBody;
 
   if (

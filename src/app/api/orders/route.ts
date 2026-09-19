@@ -3,6 +3,7 @@ import { prisma } from "@/lib/prisma";
 import { RoomState } from "@/generated/prisma/enums";
 import { PACKAGES, type PackageType } from "@/lib/pricing";
 import { DECOR8_DESIGN_STYLES, DECOR8_ROOM_TYPES } from "@/lib/decor8-options";
+import { getClientIp, rateLimit } from "@/lib/rate-limit";
 
 interface OrderImageInput {
   originalImageUrl: string;
@@ -30,6 +31,18 @@ function isValidImage(image: OrderImageInput): boolean {
 }
 
 export async function POST(request: NextRequest) {
+  const { allowed, retryAfterSeconds } = rateLimit(
+    `orders:${getClientIp(request)}`,
+    5,
+    10 * 60 * 1000
+  );
+  if (!allowed) {
+    return NextResponse.json(
+      { error: "For mange forespørsler. Prøv igjen om litt." },
+      { status: 429, headers: { "Retry-After": String(retryAfterSeconds) } }
+    );
+  }
+
   const body = (await request.json()) as CreateOrderBody;
 
   const pakke = body.packageType ? PACKAGES[body.packageType] : undefined;
